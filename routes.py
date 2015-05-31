@@ -18,7 +18,7 @@ def add_user():
  form = linux_operation_form()
  
  if request.method == 'POST':
- 	if form.validate():
+ 	if form.validate() == False:
  		flash('All Fields are compulsory')
  		return render_template('add_user.html', form=form)
  	else:
