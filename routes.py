@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from forms import linux_operation_form 
 
 app=Flask(__name__)
@@ -18,7 +18,11 @@ def add_user():
  form = linux_operation_form()
  
  if request.method == 'POST':
-  return 'form posted'
+ 	if form.validate():
+ 		flash('All Fields are compulsory')
+ 		return render_template('add_user.html', form=form)
+ 	else:
+  		return 'form posted'
  elif request.method == 'GET':
   return render_template('add_user.html',form = form)
 
