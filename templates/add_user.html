@@ -12,10 +12,21 @@
 {{ form.hidden_tag() }}
 
 {{ form.username.label }}
+<br>
 {{ form.username }}
 <br>
 {{ form.password.label }}
+<br>
 {{ form.password }}
+<br>
+{{ form.shell_selection.label}}
+<br>
+{% for subfield in form.shell_selection %}
+<tr>
+    <td>{{ subfield }}
+    {{ subfield.label }}</td>
+</tr>
+{% endfor %}
 <br> <br>
 {{ form.submit }}
 </form>

@@ -27,8 +27,12 @@ def add_user():
 
  		username=form.username.data
  		password=form.password.data
- 		func_add_user(username, password)
- 		
+ 		shell_selection=form.shell_selection.data
+ 		status=func_add_user(username, password,shell_selection)
+ 		if status == 0:
+ 			return render_template('home.html')
+ 		if status == 1:
+ 			return 'user already exists'
 	  		
  elif request.method == 'GET':
   return render_template('add_user.html',form = form)
@@ -45,7 +49,11 @@ def del_user():
  	else:
 
  		username=form.username.data
- 		func_del_user(username)
+ 		status = func_del_user(username)
+ 		if status == 0:
+ 			return render_template('home.html')
+ 		else:
+ 			return "user does not exist"
  			  		
  elif request.method == 'GET':
   return render_template('del_user.html',form = form)
