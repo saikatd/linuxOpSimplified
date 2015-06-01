@@ -32,7 +32,8 @@ def add_user():
  		if status == 0:
  			return render_template('home.html')
  		if status == 1:
- 			return 'user already exists'
+ 			error = "user already exists"
+ 			return render_template('error_page.html', error=error)
 	  		
  elif request.method == 'GET':
   return render_template('add_user.html',form = form)
@@ -53,8 +54,9 @@ def del_user():
  		if status == 0:
  			return render_template('home.html')
  		else:
- 			return "user does not exist"
- 			  		
+ 			error = "user does not exist"
+ 			return render_template('error_page.html', error=error)
+
  elif request.method == 'GET':
   return render_template('del_user.html',form = form)
 
