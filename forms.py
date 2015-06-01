@@ -19,16 +19,9 @@ def obtain_list_shells():
 class linux_operation_add_form(Form):
 	username = StringField("username", [validators.Required("Please enter the user name")])
 	password = PasswordField("password", [validators.Required("Please enter the Password")])
-	
-	
 	shell_selection = RadioField(u"Default Shell?",choices=obtain_list_shells())
- 	
  	submit = SubmitField("CREATE USER")
 
 class linux_operation_del_form(Form):
-	username = StringField("username", [validators.Required("Please enter the user name")])
-	submit = SubmitField("DELETE USER")
-
-class linux_operation_error_form(Form):
 	username = StringField("username", [validators.Required("Please enter the user name")])
 	submit = SubmitField("DELETE USER")

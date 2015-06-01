@@ -36,7 +36,7 @@ def add_user():
  			return render_template('error_page.html', error=error)
 	  		
  elif request.method == 'GET':
-  return render_template('add_user.html',form = form)
+ 	return render_template('add_user.html',form = form)
 
 @app.route('/del_user',methods=['GET','POST'])
 def del_user():
@@ -60,6 +60,29 @@ def del_user():
  elif request.method == 'GET':
   return render_template('del_user.html',form = form)
 
+
+@app.route('/mod_user',methods=['GET','POST'])
+def mod_user():
+	#form contains the 
+	# username, password, shell of choice
+	form = linux_operation_add_form()
+	if request.method == 'POST':
+	 	if form.validate() == False:
+	 		return render_template('mod_user.html', form=form)
+	 	else:
+
+	 		username=form.username.data
+	 		password=form.password.data
+	 		shell_selection=form.shell_selection.data
+	 		status=func_mod_user(username, password,shell_selection)
+	 		if status == 0:
+	 			return render_template('home.html')
+	 		if status == 1:
+	 			error = "user does not exists"
+	 			return render_template('error_page.html', error=error)
+	  		
+	elif request.method == 'GET':
+			return render_template('mod_user.html',form = form)
 
 if __name__=='__main__':
 	app.run(host="0.0.0.0", debug=True)

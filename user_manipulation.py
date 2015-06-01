@@ -30,3 +30,14 @@ def func_del_user(username):
 		return 0
 	else:
 		return 1
+
+def func_mod_user(username,password,shell_selection):
+	if if_user_exists(username) == 1:
+		encPass = crypt.crypt(password,"22")
+		cmd_string='sudo usermod -p '+encPass+' -s '+shell_selection+' '+username
+		cmd=shlex.split(cmd_string)
+		process=subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process.communicate()
+		return 0
+	else:
+		return 1
