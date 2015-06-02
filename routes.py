@@ -18,7 +18,7 @@ def about():
 def add_user():
  #form that contains the create user fields
  #username, password
- form = linux_operation_add_form()
+ form = linux_operation_add_or_mod_form()
  
  if request.method == 'POST':
  	if form.validate() == False:
@@ -48,7 +48,6 @@ def del_user():
  	if form.validate() == False:
  		return render_template('del_user.html', form=form)
  	else:
-
  		username=form.username.data
  		status = func_del_user(username)
  		if status == 0:
@@ -65,7 +64,7 @@ def del_user():
 def mod_user():
 	#form contains the 
 	# username, password, shell of choice
-	form = linux_operation_add_form()
+	form = linux_operation_add_or_mod_form()
 	if request.method == 'POST':
 	 	if form.validate() == False:
 	 		return render_template('mod_user.html', form=form)

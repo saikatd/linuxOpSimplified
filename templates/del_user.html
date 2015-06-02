@@ -8,8 +8,12 @@
 <form action ="{{ url_for('del_user') }}" method=post>
 {{ form.hidden_tag() }}
 
-{{ form.username.label }}
+<!-- {{ form.username.label }}
 {{ form.username }}
+ -->
+{{ form.username.label}}
+<br>
+{{form.username}}
 <br> <br>
 {{ form.submit }}
 </form>
