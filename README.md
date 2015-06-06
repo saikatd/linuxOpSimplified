@@ -9,7 +9,7 @@ Simplifies creation, deletion and modification on the Linux box where the app is
 * install flask
 * install flask-wtf (for the forms)
 * run the routes.py -> python routes.py
-* access the webpage on ![http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+* access the webpage on [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 ## How to use ##
 
