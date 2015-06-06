@@ -1,6 +1,7 @@
 # Linux User Administration on Flask #
 
 ## What this app does ##
+
 Simplifies creation, deletion and modification on the Linux box where the app is running
 
 ## Installation ##
