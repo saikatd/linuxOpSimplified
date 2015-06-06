@@ -17,7 +17,7 @@ def about():
 @app.route('/add_user',methods=['GET','POST'])
 def add_user():
  #form that contains the create user fields
- #username, password
+ #username, password, shell of choice, root_privilege
  form = linux_operation_add_or_mod_form()
  
  if request.method == 'POST':
@@ -28,7 +28,8 @@ def add_user():
  		username=form.username.data
  		password=form.password.data
  		shell_selection=form.shell_selection.data
- 		status=func_add_user(username, password,shell_selection)
+ 		root_privilege=form.root_privilege.data
+ 		status=func_add_user(username, password,shell_selection,root_privilege)
  		if status == 0:
  			return render_template('home.html')
  		if status == 1:
@@ -63,7 +64,7 @@ def del_user():
 @app.route('/mod_user',methods=['GET','POST'])
 def mod_user():
 	#form contains the 
-	# username, password, shell of choice
+	# username, password, shell of choice, root privilege
 	form = linux_operation_add_or_mod_form()
 	if request.method == 'POST':
 	 	if form.validate() == False:
@@ -73,7 +74,8 @@ def mod_user():
 	 		username=form.username.data
 	 		password=form.password.data
 	 		shell_selection=form.shell_selection.data
-	 		status=func_mod_user(username, password,shell_selection)
+	 		root_privilege=form.root_privilege.data
+	 		status=func_mod_user(username,password,shell_selection,root_privilege)
 	 		if status == 0:
 	 			return render_template('home.html')
 	 		if status == 1:

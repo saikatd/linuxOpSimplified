@@ -19,9 +19,20 @@
 <br>
 {{ form.password }}
 <br>
+<br>
 {{ form.shell_selection.label}}
 <br>
 {% for subfield in form.shell_selection %}
+<tr>
+    <td>{{ subfield }}
+    {{ subfield.label }}</td>
+</tr>
+{% endfor %}
+<br>
+<br>
+{{ form.root_privilege.label}}
+<br>
+{% for subfield in form.root_privilege %}
 <tr>
     <td>{{ subfield }}
     {{ subfield.label }}</td>

@@ -10,10 +10,13 @@ def if_user_exists(username):
 	if username in users_list:
 		return 1
 
-def func_add_user(username,password,shell_selection):
+def func_add_user(username,password,shell_selection,root_privilege):
 	if if_user_exists(username) != 1:
 		encPass = crypt.crypt(password,"22")
-		cmd_string='sudo useradd -m -p '+encPass+' -s '+shell_selection+' '+username
+		if root_privilege == 'n':
+			cmd_string='sudo useradd -m -p '+encPass+' -s '+shell_selection+' '+username
+		if root_privilege == 'y':
+			cmd_string='sudo useradd -m -p '+encPass+' -s '+shell_selection+' -g sudo '+username
 		cmd=shlex.split(cmd_string)
 		process=subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		process.communicate()
@@ -31,13 +34,24 @@ def func_del_user(username):
 	else:
 		return 1
 
-def func_mod_user(username,password,shell_selection):
+def func_mod_user(username,password,shell_selection,root_privilege):
 	if if_user_exists(username) == 1:
 		encPass = crypt.crypt(password,"22")
-		cmd_string='sudo usermod -p '+encPass+' -s '+shell_selection+' '+username
+		cmd_string='id -u '+username
+		cmd=shlex.split(cmd_string)
+		process_get_uid = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		uid_user,err = process_get_uid.communicate()
+		cmd_string='groupadd '+uid_user
+		process_create_group=subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process_create_group.communicate()
+		process_create_uid = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		if root_privilege == 'n':
+			cmd_string='sudo usermod -p '+encPass+' -s '+shell_selection+' -g '+uid_user+' '+username
+		if root_privilege == 'y':
+			cmd_string='sudo usermod -p '+encPass+' -s '+shell_selection+' -g sudo '+username
 		cmd=shlex.split(cmd_string)
 		process=subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-		process.communicate()
+		out,err=process.communicate()
 		return 0
 	else:
 		return 1

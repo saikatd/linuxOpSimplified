@@ -15,7 +15,7 @@ def obtain_list_shells():
 		choice_tuple=(shells,shells)
 		shell_choices.append(choice_tuple)
 	return shell_choices 
-	
+
 def get_users():
 	users_existing_cmd_string='cut -d: -f1 /etc/passwd'
 	users_existing_cmd = shlex.split(users_existing_cmd_string)
@@ -36,6 +36,7 @@ class linux_operation_add_or_mod_form(Form):
 	username = StringField("username", [validators.Required("Please enter the user name")])
 	password = PasswordField("password", [validators.Required("Please enter the Password")])
 	shell_selection = RadioField(u"Default Shell?",choices=obtain_list_shells())
+	root_privilege = RadioField(u"Root privilege?",choices=[('y','yes'),('n','no')])
 
 class linux_operation_del_form(Form):
 	#username = StringField("username", [validators.Required("Please enter the user name")])
